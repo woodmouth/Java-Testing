@@ -2,15 +2,15 @@ package com.edwin;
 
 public class EightQueens {
 
-    int[] result = new int[8];//全局或成员变量,下标表示行,值表示queen存储在哪一列
+    private int[] result = new int[8];//全局或成员变量,下标表示行,值表示queen存储在哪一列
     public void cal8queens(int row) { // 调用方式：cal8queens(0);
         if (row == 8) { // 8个棋子都放置好了，打印结果
-            printQueens(result);
+            printQueens();
             return; // 8行棋子都放好了，已经没法再往下递归了，所以就return
         }
-        for (int column = 0; column < 8; ++column) { // 每一行都有8中放法
-            if (isOk(row, column)) { // 有些放法不满足要求
-                result[row] = column; // 第row行的棋子放到了column列
+        for (int column = 0; column < 8; ++column) { // 每一行都有8种放法
+            if (isOk(row, column)) { // 检查放在column是否可以
+                result[row] = column; // 返回成功，第row行的棋子放到了column列
                 cal8queens(row+1); // 考察下一行
             }
         }
@@ -31,7 +31,7 @@ public class EightQueens {
         return true;
     }
 
-    private void printQueens(int[] result) { // 打印出一个二维矩阵
+    private void printQueens() { // 打印出一个二维矩阵
         for (int row = 0; row < 8; ++row) {
             for (int column = 0; column < 8; ++column) {
                 if (result[row] == column) System.out.print("Q ");
@@ -42,5 +42,10 @@ public class EightQueens {
         System.out.println();
     }
 
+    public static void main(String[] args) {
+        EightQueens eightQueens = new EightQueens();
+        eightQueens.cal8queens(0);
+        // eightQueens.printQueens();
+    }
            
 }
